@@ -3,6 +3,7 @@ package com.example.franciscofranco.sevenkingdoms;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ public class SevenKingdomsFragment extends Fragment {
     private ListView listView;
     private ArrayAdapter<String> arrayAdapter;
     public static final String CURRENT_RULER = "currentRuler";
+    private Communicate communicate;
 
     public SevenKingdomsFragment() {
         // Required empty public constructor
@@ -50,14 +52,23 @@ public class SevenKingdomsFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("FRANCO_DEBUG", sevenKingdoms.get(position));
-                Intent intent = new Intent(getActivity(), CurrentRuler.class);
-                intent.putExtra(CURRENT_RULER, sevenKingdoms.get(position));
-                startActivity(intent);
+
+                if (getActivity().getResources().getConfiguration()
+                        .orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    communicate.onCommunicate(BannerImages.hashMap.get(sevenKingdoms.get(position)));
+
+                } else {
+                    Log.d("FRANCO_DEBUG", sevenKingdoms.get(position));
+                    Intent intent = new Intent(getActivity(), CurrentRuler.class);
+                    intent.putExtra(CURRENT_RULER, sevenKingdoms.get(position));
+                    startActivity(intent);
+                }
             }
         });
 
         listView.setAdapter(arrayAdapter);
+
+        communicate = (Communicate) getActivity();
 
     }
 
@@ -70,5 +81,9 @@ public class SevenKingdomsFragment extends Fragment {
         sevenKingdoms.add("Baratheon of Storm's End");
         sevenKingdoms.add("Tyrell of Highgarden");
         sevenKingdoms.add("Martell of Sunspear");
+    }
+
+    public interface Communicate {
+        public void onCommunicate(String url);
     }
 }
