@@ -5,4 +5,13 @@
     <color name="colorAccent">#FF4081</color>
     <color name="white">#ffff</color>
     <color name="black">#000</color>
+
+    <color name="winterfell">#939393</color>
+    <color name="tully">#800000</color>
+    <color name="arryn">#939393</color>
+    <color name="lannister">#990000</color>
+    <color name="baratheon">#ffff00</color>
+    <color name="tyrell">#1E4D2B</color>
+    <color name="martell">#e69500</color>
+
 </resources>

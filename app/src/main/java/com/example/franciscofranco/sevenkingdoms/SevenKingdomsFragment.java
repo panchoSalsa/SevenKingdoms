@@ -26,6 +26,7 @@ public class SevenKingdomsFragment extends Fragment {
     private ArrayAdapter<String> arrayAdapter;
     public static final String CURRENT_RULER = "currentRuler";
     private Communicate communicate;
+    private View previousView;
 
     public SevenKingdomsFragment() {
         // Required empty public constructor
@@ -55,6 +56,15 @@ public class SevenKingdomsFragment extends Fragment {
 
                 if (getActivity().getResources().getConfiguration()
                         .orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
+                    if (previousView != null) {
+                        previousView.setBackgroundColor(view.getSolidColor());
+                    }
+
+                    previousView = view;
+
+                    changeBackGroundColor(view, sevenKingdoms.get(position));
+
                     communicate.onCommunicate(BannerImages.hashMap.get(sevenKingdoms.get(position)));
 
                 } else {
@@ -85,5 +95,30 @@ public class SevenKingdomsFragment extends Fragment {
 
     public interface Communicate {
         public void onCommunicate(String url);
+    }
+
+    public void changeBackGroundColor(View view, String house) {
+        switch(house) {
+            case "Stark of Winterfell":
+                view.setBackgroundColor(getResources().getColor(R.color.winterfell));
+                break;
+            case "Tully of Riverrun":
+                view.setBackgroundColor(getResources().getColor(R.color.tully));
+                break;
+            case "Arryn of the Eyrie":
+                view.setBackgroundColor(getResources().getColor(R.color.arryn));
+                break;
+            case "Lannister of Casterly Rock":
+                view.setBackgroundColor(getResources().getColor(R.color.lannister));
+                break;
+            case "Baratheon of Storm's End":
+                view.setBackgroundColor(getResources().getColor(R.color.baratheon));
+                break;
+            case "Tyrell of Highgarden":
+                view.setBackgroundColor(getResources().getColor(R.color.tyrell));
+                break;
+            case "Martell of Sunspear":
+                view.setBackgroundColor(getResources().getColor(R.color.martell));
+        }
     }
 }
